@@ -6,6 +6,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
 
 	case WM_DESTROY: {
+
+		OWindow* window= (OWindow *)GetWindowLongPtr(hwnd,GWLP_USERDATA);
+		window->onDestroy();
+
 		break;
 	}
 
@@ -39,6 +43,8 @@ OWindow::OWindow()
 	m_handle = CreateWindowEx(NULL, L"OGL3DWindow", L"Kali-yug | OPENGL 3D FPSEngine", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, NULL, NULL);
 
 	assert(m_handle);
+	
+	SetWindowLongPtr((HWND)m_handle, GWLP_USERDATA, (LONG_PTR)this);
 
 	ShowWindow((HWND)m_handle,SW_SHOW);
 	UpdateWindow((HWND)m_handle);
@@ -48,4 +54,14 @@ OWindow::OWindow()
 OWindow::~OWindow()
 {
 	DestroyWindow((HWND)m_handle);
+}
+
+void OWindow::onDestroy()
+{
+	m_handle = nullptr;
+}
+
+bool OWindow::isClosed()
+{
+	return false;
 }
