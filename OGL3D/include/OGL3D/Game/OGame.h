@@ -26,5 +26,6 @@ protected:
 
 
 	OVertexArrayObjectPtr m_triangleVAO;
+	OShaderProgramPtr m_shader;
 };
 

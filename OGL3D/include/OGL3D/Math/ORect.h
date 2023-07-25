@@ -1,5 +1,3 @@
-
-
 #pragma once
 #include <OGL3D/OPrerequisites.h>
 
